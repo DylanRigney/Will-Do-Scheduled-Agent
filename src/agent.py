@@ -1,6 +1,9 @@
 import os
 import asyncio
+from dotenv import load_dotenv
 from typing import Dict, Any, List
+
+load_dotenv()
 
 # ADK Imports
 # specific imports dependent on google-adk package structure
@@ -10,6 +13,7 @@ try:
     from google.adk.sessions import InMemorySessionService
     from google.adk.tools import google_search
     from google.genai import types
+    from google.adk.models import Gemini
 except ImportError:
     # Fail gracefully if ADK not installed yet so other parts can be tested
     print("Warning: ADK libraries not found. Agent execution will fail.")
@@ -41,16 +45,28 @@ class TaskRunner:
         try:
             task_name = task_config.get("name", "Unknown Task")
             prompt = task_config.get("prompt", "")
+            context = task_config.get("context", "")
+            
+            if context:
+                prompt = f"PREVIOUS CONTEXT:\n{context}\n\nCURRENT TASK:\n{prompt}"
+            
             tool_names = task_config.get("tools", [])
             model_name = task_config.get("model", "gemini-2.0-flash") # Default to flash
 
             logger.info(f"Starting execution for task: {task_name}")
+            if "GOOGLE_API_KEY" in os.environ:
+                 logger.info("GOOGLE_API_KEY is present in environment.")
+            else:
+                 logger.error("GOOGLE_API_KEY is MISSING from environment.")
 
             tools = self._get_tools(tool_names)
 
+            # Define Model Explicitly to pass API Key
+            model = Gemini(model=model_name, api_key=os.getenv("GOOGLE_API_KEY"))
+
             agent = Agent(
                 name=task_name.replace(" ", "_").lower(),
-                model=model_name,
+                model=model,
                 description=f"Agent for task: {task_name}",
                 instruction="You are an automated task agent. Execute the user's request precisely.",
                 tools=tools

@@ -89,15 +89,28 @@ class TaskScheduler:
                     # Save Result
                     save_task_result(name, result)
                     
-                    # Update Schedule
-                    new_next_run = calculate_next_run(next_run_str, frequency)
-                    task["next_run"] = new_next_run
                     
-                    # Save Updated Task File
-                    with open(filepath, "w", encoding="utf-8") as f:
-                        json.dump(task, f, indent=4)
+                    # Check for failure
+                    
+                    # Check for failure
+                    # Logging raw result for debug purpose
+                    logger.info(f"Task result prefix: {result[:50]}...")
+                    
+                    if result and ("Error" in result or "Exception" in result):
+                        logger.warning(f"Task '{name}' failed with error content. Schedule will NOT be updated. Will retry next cycle.")
+                    else:
+                        # Update Context with the result (learning/research loop)
+                        task["context"] = result
+
+                        # Update Schedule ONLY on success
+                        new_next_run = calculate_next_run(next_run_str, frequency)
+                        task["next_run"] = new_next_run
                         
-                    logger.info(f"Task '{name}' completed. Next run updated to {new_next_run}.")
+                        # Save Updated Task File
+                        with open(filepath, "w", encoding="utf-8") as f:
+                            json.dump(task, f, indent=4)
+                            
+                        logger.info(f"Task '{name}' completed successfully. Next run updated to {new_next_run}.")
                 else:
                     # Debug log - usually too verbose for production but good for verifying loaded tasks
                     # logger.debug(f"Task '{name}' not due yet. Next run: {next_run_str}")

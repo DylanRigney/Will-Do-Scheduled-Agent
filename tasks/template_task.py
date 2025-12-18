@@ -21,6 +21,10 @@ template_task = {
     # Natural language instructions for the agent.
     "prompt": "Describe what you want the agent to do here.",
 
+    # Continuous context from previous runs. 
+    # The agent's output from the last run will be saved here to inform the next run.
+    "context": "",
+
     # List of tools to use. Available: 'google_search'.
     "tools": [
         "google_search"
