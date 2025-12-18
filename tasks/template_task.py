@@ -7,7 +7,7 @@ template_task = {
     "name": "Template Task",
 
     # How often to repeat. 
-    # Options: 'daily', 'weekly', 'monthly', 'X days' (e.g. '3 days'), 'X weeks' (e.g. '2 weeks').
+    # Options: 'daily', 'weekly', 'monthly', 'X days' (e.g. '3 days'), 'X weeks' (e.g. '2 weeks'), 'X months' (e.g. '3 months').
     "frequency": "daily",
 
     # Datetime string (YYYY-MM-DDTHH:MM) for the next execution. Seconds are ignored.

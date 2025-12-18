@@ -50,6 +50,13 @@ def get_frequency_delta(frequency: str) -> relativedelta:
             return relativedelta(weeks=amount)
          except (ValueError, IndexError):
             return relativedelta(weeks=1)
+    elif 'month' in freq_lower:
+         try:
+            parts = freq_lower.split()
+            amount = int(parts[0])
+            return relativedelta(months=amount)
+         except (ValueError, IndexError):
+            return relativedelta(months=1)
     else:
         # Default fallback
         return relativedelta(days=1)
