@@ -1,0 +1,102 @@
+import os
+import json
+import time
+import datetime
+from dateutil import parser
+import asyncio
+
+from .agent import TaskRunner
+from .utils import setup_logging, calculate_next_run, save_task_result
+
+logger = setup_logging("Scheduler")
+
+class TaskScheduler:
+    def __init__(self, tasks_dir: str = "tasks", check_interval: int = 3600):
+        self.tasks_dir = tasks_dir
+        self.check_interval = check_interval
+        self.runner = TaskRunner()
+        self.running = False
+
+    def load_tasks(self):
+        """Yields (filename, task_data) for all valid JSON tasks."""
+        if not os.path.exists(self.tasks_dir):
+            logger.warning(f"Tasks directory {self.tasks_dir} does not exist.")
+            return
+
+        for filename in os.listdir(self.tasks_dir):
+            if filename.endswith(".json"):
+                filepath = os.path.join(self.tasks_dir, filename)
+                try:
+                    with open(filepath, "r", encoding="utf-8") as f:
+                        task_data = json.load(f)
+                        yield filepath, task_data, filename
+                except Exception as e:
+                    logger.error(f"Failed to load task {filename}: {e}")
+
+    async def process_tasks(self):
+        """Checks all tasks and runs them if due."""
+        logger.info("Checking for due tasks...")
+        now = datetime.datetime.now().astimezone() # Aware datetime
+
+        for filepath, task, filename in self.load_tasks():
+            name = task.get("name", filename)
+            next_run_str = task.get("next_run")
+            
+            if not next_run_str:
+                logger.warning(f"Task {name} missing 'next_run'. Skipping.")
+                continue
+
+            try:
+                next_run = parser.isoparse(next_run_str)
+                # Ensure next_run is aware if possible, or assume local
+                if next_run.tzinfo is None:
+                    next_run = next_run.replace(tzinfo=now.tzinfo)
+
+                if now >= next_run:
+                    logger.info(f"Task '{name}' is due (Next run: {next_run_str}). Executing...")
+                    
+                    # Execute Task
+                    result = await self.runner.run_task(task)
+                    
+                    # Save Result
+                    save_task_result(name, result)
+                    
+                    # Update Schedule
+                    frequency = task.get("frequency", "daily")
+                    new_next_run = calculate_next_run(next_run_str, frequency)
+                    task["next_run"] = new_next_run
+                    
+                    # Save Updated Task File
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump(task, f, indent=4)
+                        
+                    logger.info(f"Task '{name}' completed. Next run updated to {new_next_run}.")
+                else:
+                    # Debug log - usually too verbose for production but good for verifying loaded tasks
+                    # logger.debug(f"Task '{name}' not due yet. Next run: {next_run_str}")
+                    pass
+
+            except Exception as e:
+                logger.error(f"Error processing task {name}: {e}", exc_info=True)
+
+    def start(self):
+        """Starts the scheduling loop."""
+        self.running = True
+        logger.info(f"Scheduler started. Polling every {self.check_interval} seconds.")
+        
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+
+        try:
+            while self.running:
+                loop.run_until_complete(self.process_tasks())
+                time.sleep(self.check_interval)
+        except KeyboardInterrupt:
+            logger.info("Scheduler stopped by user.")
+        except Exception as e:
+            logger.critical(f"Scheduler crashed: {e}", exc_info=True)
+            
+if __name__ == "__main__":
+    # For testing, run with a shorter interval
+    scheduler = TaskScheduler(check_interval=60)
+    scheduler.start()
