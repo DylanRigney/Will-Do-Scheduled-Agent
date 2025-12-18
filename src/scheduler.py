@@ -11,9 +11,10 @@ from .utils import setup_logging, calculate_next_run, save_task_result, normaliz
 logger = setup_logging("Scheduler")
 
 class TaskScheduler:
-    def __init__(self, tasks_dir: str = "tasks", check_interval: int = 3600):
+    def __init__(self, tasks_dir: str = "tasks", check_interval: int = 3600, task_delay: int = 10):
         self.tasks_dir = tasks_dir
         self.check_interval = check_interval
+        self.task_delay = task_delay # Delay in seconds between sequential tasks
         self.runner = TaskRunner()
         self.running = False
 
@@ -37,6 +38,8 @@ class TaskScheduler:
         """Checks all tasks and runs them if due."""
         logger.info("Checking for due tasks...")
         now = datetime.datetime.now().astimezone() # Aware datetime
+
+        tasks_run_count = 0
 
         for filepath, task, filename in self.load_tasks():
             name = task.get("name", filename)
@@ -72,10 +75,16 @@ class TaskScheduler:
                     next_run = next_run.replace(tzinfo=now.tzinfo)
 
                 if now >= next_run:
+                    # If we have already run a task in this cycle, pause before the next one
+                    if tasks_run_count > 0:
+                        logger.info(f"Pausing for {self.task_delay} seconds before next task to reduce system load...")
+                        await asyncio.sleep(self.task_delay)
+
                     logger.info(f"Task '{name}' is due (Next run: {next_run_str}). Executing...")
                     
                     # Execute Task
                     result = await self.runner.run_task(task)
+                    tasks_run_count += 1
                     
                     # Save Result
                     save_task_result(name, result)
