@@ -6,7 +6,7 @@ from dateutil import parser
 import asyncio
 
 from .agent import TaskRunner
-from .utils import setup_logging, calculate_next_run, save_task_result
+from .utils import setup_logging, calculate_next_run, save_task_result, normalize_next_run
 
 logger = setup_logging("Scheduler")
 
@@ -40,12 +40,31 @@ class TaskScheduler:
 
         for filepath, task, filename in self.load_tasks():
             name = task.get("name", filename)
-            next_run_str = task.get("next_run")
+            raw_next_run = task.get("next_run")
+            frequency = task.get("frequency", "daily")
             
-            if not next_run_str:
-                logger.warning(f"Task {name} missing 'next_run'. Skipping.")
+            # Normalize next_run (handles "Now", None, Date-only, etc.)
+            try:
+                normalized_next_run = normalize_next_run(raw_next_run, frequency)
+            except Exception as e:
+                logger.error(f"Failed to normalize next_run for {name}: {e}")
                 continue
-
+            
+            # If normalization changed the value (e.g. "Now" -> timestamp, or None -> future date), 
+            # save it back to the file immediately.
+            if normalized_next_run != raw_next_run:
+                logger.info(f"Normalizing 'next_run' for task '{name}': '{raw_next_run}' -> '{normalized_next_run}'")
+                task["next_run"] = normalized_next_run
+                try:
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump(task, f, indent=4)
+                except Exception as e:
+                    logger.error(f"Failed to save normalized task {name}: {e}")
+                    # Continue using the normalized value in memory
+            
+            # Now proceed with standard checking
+            next_run_str = task["next_run"]
+            
             try:
                 next_run = parser.isoparse(next_run_str)
                 # Ensure next_run is aware if possible, or assume local
@@ -62,7 +81,6 @@ class TaskScheduler:
                     save_task_result(name, result)
                     
                     # Update Schedule
-                    frequency = task.get("frequency", "daily")
                     new_next_run = calculate_next_run(next_run_str, frequency)
                     task["next_run"] = new_next_run
                     

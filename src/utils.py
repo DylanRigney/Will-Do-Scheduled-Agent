@@ -26,50 +26,94 @@ def setup_logging(name: str, log_dir: str = "logs") -> logging.Logger:
         
     return logger
 
+def get_frequency_delta(frequency: str) -> relativedelta:
+    """Parses a frequency string into a relativedelta."""
+    freq_lower = frequency.lower()
+    
+    if freq_lower == 'daily':
+        return relativedelta(days=1)
+    elif freq_lower == 'weekly':
+        return relativedelta(weeks=1)
+    elif freq_lower == 'monthly':
+        return relativedelta(months=1)
+    elif 'day' in freq_lower:
+        try:
+            parts = freq_lower.split()
+            amount = int(parts[0])
+            return relativedelta(days=amount)
+        except (ValueError, IndexError):
+            return relativedelta(days=1)
+    elif 'week' in freq_lower:
+         try:
+            parts = freq_lower.split()
+            amount = int(parts[0])
+            return relativedelta(weeks=amount)
+         except (ValueError, IndexError):
+            return relativedelta(weeks=1)
+    else:
+        # Default fallback
+        return relativedelta(days=1)
+
 def calculate_next_run(current_run_iso: str, frequency: str) -> str:
     """
     Calculates the next run time based on frequency.
     Supported frequencies: 'daily', 'weekly', 'monthly', 'X days', 'X weeks'.
     """
     current_run = parser.isoparse(current_run_iso)
-    now = datetime.datetime.now(current_run.tzinfo)
+    # Ensure current_run is naive if we are doing simple arithmetic or aware if needed, 
+    # but relativedelta handles both fine. 
     
-    # If the current run time is in the future, we still calculate relative to it 
-    # to maintain the schedule (e.g. every Monday), 
-    # UNLESS it's way in the past, in which case we might want to catch up used 'now'.
-    # For this strict scheduler, we increment from the *scheduled* time to keep cadence.
-    
-    base_time = current_run
-    
-    freq_lower = frequency.lower()
-    
-    if freq_lower == 'daily':
-        next_time = base_time + relativedelta(days=1)
-    elif freq_lower == 'weekly':
-        next_time = base_time + relativedelta(weeks=1)
-    elif freq_lower == 'monthly':
-        next_time = base_time + relativedelta(months=1)
-    elif 'day' in freq_lower:
-        # naive parsing for "2 days", "3 days"
-        try:
-            parts = freq_lower.split()
-            amount = int(parts[0])
-            next_time = base_time + relativedelta(days=amount)
-        except (ValueError, IndexError):
-            # Fallback
-            next_time = base_time + relativedelta(days=1)
-    elif 'week' in freq_lower:
-         try:
-            parts = freq_lower.split()
-            amount = int(parts[0])
-            next_time = base_time + relativedelta(weeks=amount)
-         except (ValueError, IndexError):
-            next_time = base_time + relativedelta(weeks=1)
-    else:
-        # Default fallback
-        next_time = base_time + relativedelta(days=1)
-
+    delta = get_frequency_delta(frequency)
+    next_time = current_run + delta
     return next_time.isoformat()
+
+def normalize_next_run(next_run_val, frequency: str) -> str:
+    """
+    Parses and normalizes the 'next_run' field into a standard ISO 8601 string.
+    Handles:
+    - "Now" -> Returns current time (effectively triggers immediate run).
+    - None/Empty -> Returns (Now + Frequency) at 07:00:00.
+    - "YYYY-MM-DD" -> Returns "YYYY-MM-DDT07:00:00".
+    - "YYYY-MM-DDTHH:MM" -> Returns "YYYY-MM-DDTHH:MM:00".
+    - ISO strings -> Returns as is.
+    """
+    now = datetime.datetime.now().replace(microsecond=0)
+    
+    # Handle None or Empty
+    if not next_run_val or (isinstance(next_run_val, str) and not next_run_val.strip()):
+        delta = get_frequency_delta(frequency)
+        future_date = now + delta
+        # Default to 07:00 AM
+        future_date = future_date.replace(hour=7, minute=0, second=0, microsecond=0)
+        return future_date.isoformat()
+
+    if isinstance(next_run_val, str):
+        val_lower = next_run_val.strip().lower()
+        
+        # Handle "Now"
+        if val_lower == "now":
+            return now.isoformat()
+        
+        # Handle Date Only (YYYY-MM-DD) - Length 10
+        if len(next_run_val.strip()) == 10 and "T" not in next_run_val:
+            try:
+                # Validate it's a date
+                dt = parser.parse(next_run_val)
+                # Set to 07:00 AM
+                dt = dt.replace(hour=7, minute=0, second=0, microsecond=0)
+                return dt.isoformat()
+            except parser.ParserError:
+                pass # Fall through to standard parser
+                
+        # Handle HH:MM without seconds (auto-handled by parser usually, but let's be safe)
+        try:
+            dt = parser.parse(next_run_val)
+            return dt.isoformat()
+        except Exception:
+            # If parsing fails, fallback to None behavior or raise
+            return next_run_val # Let the caller handle the error or it will fail later
+
+    return str(next_run_val)
 
 def save_task_result(task_name: str, result_content: str, base_dir: str = "task_results"):
     """Saves the task result to a structured folder."""
