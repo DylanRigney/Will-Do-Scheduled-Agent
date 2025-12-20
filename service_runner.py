@@ -9,12 +9,12 @@ import os
 # Add current directory to path so modules can be found
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from will_do.scheduler import TaskScheduler
+from src.scheduler import TaskScheduler
 
-class WillDoService(win32serviceutil.ServiceFramework):
-    _svc_name_ = "WillDoAgent"
-    _svc_display_name_ = "Will Do Scheduled Agent"
-    _svc_description_ = "Modular AI agent scheduler requiring ADK."
+class AsyncTaskAgentService(win32serviceutil.ServiceFramework):
+    _svc_name_ = "AsyncTaskAgent"
+    _svc_display_name_ = "Asynchronous Task Agent"
+    _svc_description_ = "Asynchronous Task Agent Scheduler."
 
     def __init__(self, args):
         win32serviceutil.ServiceFramework.__init__(self, args)
@@ -56,4 +56,4 @@ class WillDoService(win32serviceutil.ServiceFramework):
             servicemanager.LogInfoMsg(f"Service Error: {e}")
 
 if __name__ == '__main__':
-    win32serviceutil.HandleCommandLine(WillDoService)
+    win32serviceutil.HandleCommandLine(AsyncTaskAgentService)

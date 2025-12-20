@@ -95,7 +95,7 @@ class TaskRunner:
             )
 
             # Unique session info for this run
-            app_name = f"will_do_{task_name}"
+            app_name = f"async_agent_{task_name}"
             user_id = "scheduler_user"
             session_id = f"sess_{os.urandom(4).hex()}"
 
