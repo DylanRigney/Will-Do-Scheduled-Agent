@@ -1,0 +1,25 @@
+{
+    "name": "AI Research",
+    "frequency": "2 weeks",
+    "next_run": "2026-01-03T02:55:49",
+    "task_definition": "Conduct extensive research on promising AI startups. Compile a top 10 list of the most promising companies based on promise and upside from an investing perspective. Include their mission, recent funding, recent milestones, and key founders and why they are likely to succeed. Update the top 10 list and rerank companies as information changes adding more promising companies as they are found and removing old companies as more promising options are discovered. Indicate how much a company has risen or fallen in the list, how many spots and why. Indicate if a company has been removed from the list and why. Take note if and when reflexivity/momentum/moat/network effect etc is increasing for a company. Take note if a company has an especially skillful ceo, cofounders or leaders or influential investors. The goal of this list is for it to contain any companies that will evemtually become the AI equivalent of the next Google, Microsoft, Amazon Apple etc.",
+    "context": {
+        "knowledge_base": "Current Top 10 Promising AI Startups :\n\n1. Anthropic (2021): Safety-focused AI (Claude). \u20ac\u2022$20.7B funding. Key: Dario/Daniela Amodei.\n2. xAI (2023): Understanding universe (Grok). \u20ac\u2022$25B funding. Key: Elon Musk.\n3. Perplexity AI (2022): AI search engine. Unicorn status. Key: Aravind Srinivas (implied).\n4. Mistral AI (2023): Open-weight LLMs. \u20ac\u2022$3B funding. Key: Arthur Mensch.\n5. Anysphere/Cursor (2022): AI coding tool. \u20ac\u2022$2.5B valuation. Key: Michael Truell.\n6. Safe Superintelligence Inc. (2024): Safe AGI. $1B funding. Key: Ilya Sutskever.\n7. Jasper AI (2021): Marketing content automation. High adoption.\n8. Mercor (Recent): AI hiring/recruitment. $2B valuation. Key: Brendan Foody.\n9. Mem AI (2021): AI note-taking/knowledge. $29M+ funding.\n10. Thinking Machine Labs (Recent): Stealth AI systems. \u20ac\u2022$1B raise reported. Key: Mira Murati.\n\nExcluded (Too old): Databricks, OpenAI, Scale AI.\nUnder Review: Groq, CoreWeave (need founding year confirmation).",
+        "delta_history": [
+            "2025-12-20: Initial Top 10 list created."
+        ],
+        "open_leads": [
+            "Monitor listed companies for new funding/milestones.",
+            "Search for new startups.",
+            "Gather detailed founder info for Perplexity AI, Jasper AI, Mem AI.",
+            "Investigate technological moats and network effects for ranked companies.",
+            "Confirm founding years for Groq and CoreWeave."
+        ],
+        "iteration_count": 1
+    },
+    "output": "",
+    "tools": [
+        "google_search"
+    ],
+    "model": "gemini-2.5-flash"
+}

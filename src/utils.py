@@ -122,15 +122,28 @@ def normalize_next_run(next_run_val, frequency: str) -> str:
 
     return str(next_run_val)
 
-def save_task_result(task_name: str, result_content: str, base_dir: str = "task_results"):
-    """Saves the task result to a structured folder."""
-    task_dir = os.path.join(base_dir, task_name)
-    if not os.path.exists(task_dir):
-        os.makedirs(task_dir)
-        
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    filename = f"{timestamp}.txt"
-    file_path = os.path.join(task_dir, filename)
+def save_task_result(task_name: str, result_content: str, base_dir: str = "task_results", output_path: str = None) -> str:
+    """
+    Saves the task result.
+    If output_path is provided, saves to that specific file (creating dirs if needed).
+    Otherwise, saves to base_dir/task_name/timestamp.txt.
+    """
+    if output_path:
+        # Use custom path
+        file_path = output_path
+        # Ensure directory exists
+        dir_name = os.path.dirname(file_path)
+        if dir_name and not os.path.exists(dir_name):
+            os.makedirs(dir_name)
+    else:
+        # Default behavior
+        task_dir = os.path.join(base_dir, task_name)
+        if not os.path.exists(task_dir):
+            os.makedirs(task_dir)
+            
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = f"{timestamp}.txt"
+        file_path = os.path.join(task_dir, filename)
     
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(result_content)

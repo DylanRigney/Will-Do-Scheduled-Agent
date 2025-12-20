@@ -83,34 +83,47 @@ class TaskScheduler:
                     logger.info(f"Task '{name}' is due (Next run: {next_run_str}). Executing...")
                     
                     # Execute Task
-                    result = await self.runner.run_task(task)
+                    result_data = await self.runner.run_task(task)
                     tasks_run_count += 1
                     
-                    # Save Result
-                    save_task_result(name, result)
+                    report = result_data.get("report", "")
+                    new_context = result_data.get("new_context", {})
                     
+                    # Save Result (Report)
+                    output_path = task.get("output")
+                    saved_path = save_task_result(name, report, output_path=output_path)
                     
-                    # Check for failure
-                    
-                    # Check for failure
                     # Logging raw result for debug purpose
-                    logger.info(f"Task result prefix: {result[:50]}...")
+                    logger.info(f"Task result saved to: {saved_path}")
                     
-                    if result and ("Error" in result or "Exception" in result):
-                        logger.warning(f"Task '{name}' failed with error content. Schedule will NOT be updated. Will retry next cycle.")
-                    else:
-                        # Update Context with the result (learning/research loop)
-                        task["context"] = result
+                    if "Error" in report and len(report) < 200: 
+                        # intense error check, but be careful not to flag generic text. 
+                        # If the report is JUST an error message, we might want to retry?
+                        # For now, let's assume if we got a report, we succeeded, unless it's the specific "Error executing..." fallback
+                        if report.startswith("Error executing task:"):
+                             logger.warning(f"Task '{name}' failed with system error. Schedule will NOT be updated. Will retry next cycle.")
+                             continue
 
-                        # Update Schedule ONLY on success
-                        new_next_run = calculate_next_run(next_run_str, frequency)
-                        task["next_run"] = new_next_run
+                    # Update Context with the result (learning/research loop)
+                    task["context"] = new_context
+                    
+                    # If we have a delta history, we might want to append? 
+                    # The prompt says "NEW_MEMORY: ... updates the context field". 
+                    # So we assume the agent returns the FULL new context state, OR we merge?
+                    # The prompt says: "A structured JSON object that updates the context field".
+                    # Usually means "replace". Let's assume replace or the agent includes previous info if needed.
+                    # Given the "State Awareness" prompt, the agent sees old context. 
+                    # Use replace to allow agent to curate memory.
+
+                    # Update Schedule ONLY on success
+                    new_next_run = calculate_next_run(next_run_str, frequency)
+                    task["next_run"] = new_next_run
+                    
+                    # Save Updated Task File
+                    with open(filepath, "w", encoding="utf-8") as f:
+                        json.dump(task, f, indent=4)
                         
-                        # Save Updated Task File
-                        with open(filepath, "w", encoding="utf-8") as f:
-                            json.dump(task, f, indent=4)
-                            
-                        logger.info(f"Task '{name}' completed successfully. Next run updated to {new_next_run}.")
+                    logger.info(f"Task '{name}' completed successfully. Next run updated to {new_next_run}.")
                 else:
                     # Debug log - usually too verbose for production but good for verifying loaded tasks
                     # logger.debug(f"Task '{name}' not due yet. Next run: {next_run_str}")

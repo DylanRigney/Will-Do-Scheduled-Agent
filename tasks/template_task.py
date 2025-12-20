@@ -19,18 +19,25 @@ template_task = {
     "next_run": None,
 
     # Natural language instructions for the agent.
-    "prompt": "Describe what you want the agent to do here.",
+    "task_definition": "Describe what you want the agent to do here.",
 
-    # Continuous context from previous runs. 
-    # The agent's output from the last run will be saved here to inform the next run.
-    "context": "",
+    # Structured context from previous runs. 
+    # The agent's NEW_MEMORY from the last run will be saved here.
+    "context": {
+        "knowledge_base": "Initial knowledge...",
+        "iteration_count": 0
+    },
+    
+    # Optional: File path for the human-readable report.
+    # If omitted, defaults to task_results/{task_name}/{timestamp}.txt
+    "output": "reports/my_task_report.md",
 
     # List of tools to use. Available: 'google_search'.
     "tools": [
         "google_search"
     ],
 
-    # Model to use. Default: 'gemini-2.5-flash'.
-    # Valid options include: 'gemini-2.5-flash', 'gemini-2.5-flash-lite', 'gemini-3.0-flash'.
-    "model": "gemini-2.5-flash"
+    # Model to use. Default: 'gemini-2.5-flash-lite'.
+    # Valid options include: 'gemini-2.5-flash', 'gemini-2.5-flash-lite'.
+    "model": "gemini-2.5-flash-lite"
 }

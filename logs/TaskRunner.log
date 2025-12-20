@@ -1,0 +1,786 @@
+2025-12-17 21:34:47,220 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:34:47,224 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:34:47,231 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    async for event in events:
+    ...<2 lines>...
+            logger.info("Task execution completed successfully.")
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:39:47,640 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:39:47,721 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:39:47,798 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    final_response_text = ""
+    ...<2 lines>...
+    async for event in events:
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:41:47,899 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:41:47,912 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:41:47,938 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    content = types.Content(role='user', parts=[types.Part(text=prompt)])
+    ...<2 lines>...
+    
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:44:48,004 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:44:48,025 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:44:48,042 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    content = types.Content(role='user', parts=[types.Part(text=prompt)])
+    ...<2 lines>...
+    
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:47:08,183 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:47:08,186 - TaskRunner - INFO - GOOGLE_API_KEY is present in environment.
+2025-12-17 21:47:08,189 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:47:48,100 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:47:48,125 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:47:48,149 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    
+    ...<2 lines>...
+    logger.info(f"Sending prompt to agent: {prompt[:50]}...")
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:48:13,275 - TaskRunner - INFO - Task execution completed successfully.
+2025-12-17 21:49:48,208 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:49:48,230 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:49:48,259 - TaskRunner - ERROR - Error executing task AI Research: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 75, in run_task
+    session_service = InMemorySessionService()
+    ...<2 lines>...
+    
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 161, in generate_content_async
+    await self._preprocess_request(llm_request)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 424, in _preprocess_request
+    if self._api_backend == GoogleLLMVariant.GEMINI_API:
+       ^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 314, in _api_backend
+    if self.api_client.vertexai
+       ^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\functools.py", line 1127, in __get__
+    val = self.func(instance)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 303, in api_client
+    return Client(
+        http_options=types.HttpOptions(
+    ...<2 lines>...
+        )
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 395, in __init__
+    self._api_client = self._get_api_client(
+                       ~~~~~~~~~~~~~~~~~~~~^
+        vertexai=vertexai,
+        ^^^^^^^^^^^^^^^^^^
+    ...<5 lines>...
+        http_options=http_options,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\client.py", line 443, in _get_api_client
+    return BaseApiClient(
+        vertexai=vertexai,
+    ...<4 lines>...
+        http_options=http_options,
+    )
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 683, in __init__
+    raise ValueError(
+    ...<3 lines>...
+    )
+ValueError: Missing key inputs argument! To use the Google AI API, provide (`api_key`) arguments. To use the Google Cloud API, provide (`vertexai`, `project` & `location`) arguments.
+2025-12-17 21:53:04,271 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-17 21:53:04,272 - TaskRunner - INFO - GOOGLE_API_KEY is present in environment.
+2025-12-17 21:53:04,274 - TaskRunner - INFO - Sending prompt to agent: Conduct extensive research on promising AI startup...
+2025-12-17 21:53:57,646 - TaskRunner - INFO - Task execution completed successfully.
+2025-12-20 01:52:34,629 - TaskRunner - ERROR - Error executing task Refactor Verification: name 'json' is not defined
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 56, in run_task
+    context_str = json.dumps(context_data, indent=2)
+                  ^^^^
+NameError: name 'json' is not defined. Did you forget to import 'json'?
+2025-12-20 01:52:54,962 - TaskRunner - INFO - Starting execution for task: Refactor Verification
+2025-12-20 01:52:54,963 - TaskRunner - INFO - Sending prompt to agent for task 'Refactor Verification'...
+2025-12-20 01:52:56,299 - TaskRunner - ERROR - Error executing task Refactor Verification: 
+On how to mitigate this issue, please refer to:
+
+https://google.github.io/adk-docs/agents/models/#error-code-429-resource_exhausted
+
+
+429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 3.573550738s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}}
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 241, in generate_content_async
+    response = await self.api_client.aio.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\models.py", line 7045, in generate_content
+    response = await self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        model=model, contents=contents, config=parsed_config
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\models.py", line 5851, in _generate_content
+    response = await self._api_client.async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'post', path, request_dict, http_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1434, in async_request
+    result = await self._async_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        http_request=http_request, http_options=http_options, stream=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1367, in _async_request
+    return await self._async_retry(  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self._async_request_once, http_request, stream
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 111, in __call__
+    do = await self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 153, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\__init__.py", line 420, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\__init__.py", line 187, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 114, in __call__
+    result = await fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1347, in _async_request_once
+    await errors.APIError.raise_for_async_response(client_response)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\errors.py", line 203, in raise_for_async_response
+    await cls.raise_error_async(status_code, response_json, response)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\errors.py", line 225, in raise_error_async
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 3.573550738s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}}
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 113, in run_task
+    async for event in events:
+    ...<2 lines>...
+            logger.info("Task execution completed successfully.")
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 260, in generate_content_async
+    raise _ResourceExhaustedError(ce) from ce
+google.adk.models.google_llm._ResourceExhaustedError: 
+On how to mitigate this issue, please refer to:
+
+https://google.github.io/adk-docs/agents/models/#error-code-429-resource_exhausted
+
+
+429 RESOURCE_EXHAUSTED. {'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/usage?tab=rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-2.0-flash\nPlease retry in 3.573550738s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_input_token_count', 'quotaId': 'GenerateContentInputTokensPerModelPerMinute-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerMinutePerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}, {'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.0-flash'}}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '3s'}]}}
+2025-12-20 01:58:14,449 - TaskRunner - INFO - Starting execution for task: Refactor Verification
+2025-12-20 01:58:14,449 - TaskRunner - INFO - Sending prompt to agent for task 'Refactor Verification'...
+2025-12-20 01:58:15,878 - TaskRunner - INFO - Task execution completed successfully.
+2025-12-20 02:31:26,285 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-20 02:31:26,285 - TaskRunner - INFO - Sending prompt to agent for task 'AI Research'...
+2025-12-20 02:31:27,341 - TaskRunner - ERROR - Error executing task AI Research: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-3.0-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+Traceback (most recent call last):
+  File "C:\development\Agentic Systems\scheduled agent\src\agent.py", line 113, in run_task
+    async for event in events:
+    ...<2 lines>...
+            logger.info("Task execution completed successfully.")
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 505, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 493, in _run_with_trace
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 722, in _exec_with_plugin
+    async for event in agen:
+    ...<54 lines>...
+      yield (modified_event if modified_event else event)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\runners.py", line 482, in execute
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\base_agent.py", line 294, in run_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\agents\llm_agent.py", line 460, in _run_async_impl
+    async for event in agen:
+    ...<5 lines>...
+        should_pause = True
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 370, in run_async
+    async for event in agen:
+      last_event = event
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 447, in _run_one_step_async
+    async for llm_response in agen:
+    ...<13 lines>...
+          yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 816, in _call_llm_async
+    async for event in agen:
+      yield event
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 800, in _call_llm_with_tracing
+    async for llm_response in agen:
+    ...<12 lines>...
+      yield llm_response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1053, in _run_and_handle_error
+    raise model_error
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\flows\llm_flows\base_llm_flow.py", line 1039, in _run_and_handle_error
+    async for response in agen:
+      yield response
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 262, in generate_content_async
+    raise ce
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\adk\models\google_llm.py", line 241, in generate_content_async
+    response = await self.api_client.aio.models.generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<3 lines>...
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\models.py", line 7045, in generate_content
+    response = await self._generate_content(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        model=model, contents=contents, config=parsed_config
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\models.py", line 5851, in _generate_content
+    response = await self._api_client.async_request(
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        'post', path, request_dict, http_options
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1434, in async_request
+    result = await self._async_request(
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+        http_request=http_request, http_options=http_options, stream=False
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1367, in _async_request
+    return await self._async_retry(  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        self._async_request_once, http_request, stream
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 111, in __call__
+    do = await self.iter(retry_state=retry_state)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 153, in iter
+    result = await action(retry_state)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\_utils.py", line 99, in inner
+    return call(*args, **kwargs)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\__init__.py", line 420, in exc_check
+    raise retry_exc.reraise()
+          ~~~~~~~~~~~~~~~~~^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\__init__.py", line 187, in reraise
+    raise self.last_attempt.result()
+          ~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\tenacity\asyncio\__init__.py", line 114, in __call__
+    result = await fn(*args, **kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\_api_client.py", line 1347, in _async_request_once
+    await errors.APIError.raise_for_async_response(client_response)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\errors.py", line 203, in raise_for_async_response
+    await cls.raise_error_async(status_code, response_json, response)
+  File "C:\development\Agentic Systems\scheduled agent\.venv\Lib\site-packages\google\genai\errors.py", line 225, in raise_error_async
+    raise ClientError(status_code, response_json, response)
+google.genai.errors.ClientError: 404 NOT_FOUND. {'error': {'code': 404, 'message': 'models/gemini-3.0-flash is not found for API version v1beta, or is not supported for generateContent. Call ListModels to see the list of available models and their supported methods.', 'status': 'NOT_FOUND'}}
+2025-12-20 02:33:34,248 - TaskRunner - INFO - Starting execution for task: AI Research
+2025-12-20 02:33:34,248 - TaskRunner - INFO - Sending prompt to agent for task 'AI Research'...
+2025-12-20 02:34:15,757 - TaskRunner - INFO - Task execution completed successfully.
+2025-12-20 02:34:15,758 - TaskRunner - ERROR - Failed to parse NEW_MEMORY JSON: Expecting value: line 1 column 1 (char 0)
