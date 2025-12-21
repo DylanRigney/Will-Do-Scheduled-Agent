@@ -33,6 +33,9 @@ class AsyncTaskAgentService(win32serviceutil.ServiceFramework):
                               servicemanager.PYS_SERVICE_STARTED,
                               (self._svc_name_, ''))
         
+        # Calculate Root Directory (The folder where this script is located)
+        root_dir = os.path.dirname(os.path.abspath(__file__))
+
         # Run 10 seconds check interval for service responsiveness, 
         # but logic inside scheduler can enforce the 1 hour wait if re-architechted, 
         # OR we just pass 3600 here. Passing 3600 means SvcStop might hang for 1 hour.
@@ -43,7 +46,7 @@ class AsyncTaskAgentService(win32serviceutil.ServiceFramework):
         # Let's modify the scheduler usage slightly for better service behavior here or just stick to simple.
         # We will use the simple Blocking Scheduler for now as requested.
         
-        self.scheduler = TaskScheduler(check_interval=3600)
+        self.scheduler = TaskScheduler(check_interval=3600, root_dir=root_dir)
         
         # We need to run the scheduler in a way that checks hWaitStop?
         # The scheduler.start() is blocking. 

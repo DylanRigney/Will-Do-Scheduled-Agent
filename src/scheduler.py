@@ -8,15 +8,31 @@ import asyncio
 from .agent import TaskRunner
 from .utils import setup_logging, calculate_next_run, save_task_result, normalize_next_run
 
-logger = setup_logging("Scheduler")
+# We will initialize logger inside the class or after we know the root dir, 
+# BUT for module level logging, we might default to standard behavior.
+# Better practice: Initialize logger in __init__ or use a default that works.
+# For now, we keep module level but maybe we re-configure it in __init__?
+# A simple way is to lazily setup logging or just let the first call win.
+# Let's modify setup_logging usage.
 
 class TaskScheduler:
-    def __init__(self, tasks_dir: str = "tasks", check_interval: int = 3600, task_delay: int = 10):
-        self.tasks_dir = tasks_dir
+    def __init__(self, tasks_dir: str = "tasks", check_interval: int = 3600, task_delay: int = 10, root_dir: str = None):
+        self.root_dir = root_dir
+        
+        # If root_dir is provided and tasks_dir is relative, join them
+        if self.root_dir and not os.path.isabs(tasks_dir):
+            self.tasks_dir = os.path.join(self.root_dir, tasks_dir)
+        else:
+            self.tasks_dir = tasks_dir
+
         self.check_interval = check_interval
         self.task_delay = task_delay # Delay in seconds between sequential tasks
         self.runner = TaskRunner()
         self.running = False
+        
+        # Re-setup logging with correct path if root_dir is known
+        global logger
+        logger = setup_logging("Scheduler", root_dir=self.root_dir)
 
     def load_tasks(self):
         """Yields (filename, task_data) for all valid JSON tasks."""
@@ -91,7 +107,7 @@ class TaskScheduler:
                     
                     # Save Result (Report)
                     output_path = task.get("output")
-                    saved_path = save_task_result(name, report, output_path=output_path)
+                    saved_path = save_task_result(name, report, output_path=output_path, root_dir=self.root_dir)
                     
                     # Logging raw result for debug purpose
                     logger.info(f"Task result saved to: {saved_path}")

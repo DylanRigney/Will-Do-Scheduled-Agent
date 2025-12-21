@@ -4,8 +4,11 @@ import datetime
 from dateutil import parser
 from dateutil.relativedelta import relativedelta
 
-def setup_logging(name: str, log_dir: str = "logs") -> logging.Logger:
+def setup_logging(name: str, log_dir: str = "logs", root_dir: str = None) -> logging.Logger:
     """Configures and returns a logger."""
+    if root_dir:
+        log_dir = os.path.join(root_dir, log_dir)
+
     if not os.path.exists(log_dir):
         os.makedirs(log_dir)
     
@@ -122,12 +125,21 @@ def normalize_next_run(next_run_val, frequency: str) -> str:
 
     return str(next_run_val)
 
-def save_task_result(task_name: str, result_content: str, base_dir: str = "task_results", output_path: str = None) -> str:
+def save_task_result(task_name: str, result_content: str, base_dir: str = "task_results", output_path: str = None, root_dir: str = None) -> str:
     """
     Saves the task result.
     If output_path is provided, saves to that specific file (creating dirs if needed).
     Otherwise, saves to base_dir/task_name/timestamp.txt.
+    If root_dir is provided, it is prepended to base_dir (if base_dir is relative) 
+    or output_path (if output_path is relative).
     """
+    if root_dir:
+        # Prepend root_dir if the path is not already absolute
+        if output_path and not os.path.isabs(output_path):
+             output_path = os.path.join(root_dir, output_path)
+        if base_dir and not os.path.isabs(base_dir):
+             base_dir = os.path.join(root_dir, base_dir)
+
     if output_path:
         # Use custom path
         file_path = output_path
